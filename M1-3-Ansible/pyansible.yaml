@@ -1,0 +1,37 @@
+- name: Docker on Ansible 
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: Dockerfile from scratch
+      ansible.builtin.copy:
+        dest: "./Dockerfile"
+        content: |
+          FROM python:3.11-slim
+          WORKDIR /M1-3-Ansible
+          COPY . .
+          RUN pip install -r requirements.txt
+          CMD ["python", "main.py"]
+
+    - name: Build the file brat
+      community.docker.docker_image:
+        name: "redzek/pythonimage2"
+        tag: v1
+        source: build
+        build:
+          path: "."
+        docker_host: "unix://{{ ansible_env.HOME }}/.docker/run/docker.sock"
+    
+    - name: Run container
+      community.docker.docker_container:
+        name: PythonAnsible
+        image: "redzek/pythonimage2:v1"
+        volumes:
+          - /Users/andreypavlov/DevOps/telerik/devops-programme/M1-3-Ansible/main.py
+        state: started
+        restart_policy: on-failure
+        ports: 
+          - "3000:3000"
+        recreate: true
+        docker_host: "unix://{{ ansible_env.HOME }}/.docker/run/docker.sock"
+        
