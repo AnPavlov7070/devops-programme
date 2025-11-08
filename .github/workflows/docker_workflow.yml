@@ -13,9 +13,11 @@ jobs:
           uses: actions/checkout@v4
 
         - name: Lint Build Docker image
-          run: docker build -t redzek/telerik:v1 /Users/andreypavlov/DevOps/telerik/devops-programme/Docker_Homework/Dockerfile
+          run: docker build -t redzek/telerik:v1 -f python-app/Dockerfile python-app/
 
         - name: Lint Run container test
-          run: docker run --rm redzek/telerik:v1 echo "✅ Container works!"
+          run: docker run --rm redzek/telerik:v1 echo "✅ Container works fine!"
+          
+
         
           
