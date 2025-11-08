@@ -1,0 +1,20 @@
+name: Docker CI
+run-name: Docker4o 
+
+on:
+   pull_request:
+      branches:
+        - main
+jobs:
+   ci:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+
+        - name: Build Docker image
+          run: docker build -t redzek/telerik:v1 .
+
+        - name: Run container test
+          run: docker run --rm redzek/telerik:v1 echo "✅ Container works!"
+          
