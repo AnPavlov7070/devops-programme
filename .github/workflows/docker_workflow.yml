@@ -13,10 +13,10 @@ jobs:
           uses: actions/checkout@v4
 
         - name: Lint Build Docker image
-          run: docker build -t redzek/telerik:latest -f ./devops-programme/Dockerfile .
+          run: docker build -t redzek/pythonenv:latest .
 
         - name: Lint Run container test
-          run: docker run --rm redzek/telerik:latest echo "✅ Container works fine!"
+          run: docker run --rm redzek/pythonenv:latest echo "✅ Container works fine!"
           
 
         
