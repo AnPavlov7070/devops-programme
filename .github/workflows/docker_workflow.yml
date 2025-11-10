@@ -9,15 +9,16 @@ jobs:
    ci:
       runs-on: ubuntu-latest
       steps:
-        - name: Lint Checkout code
+        - name: Checkout code
           uses: actions/checkout@v4
 
-        - name: Lint Build Docker image
-          run: docker build -t redzek/pythonenv:latest .
+        - name: Build Docker image
+          run: docker build -t redzek/pythonenv:latest
+          working-directory: ${{ github.workspace }}/Docker_Homework
 
-        - name: Lint Run container test
+
+        - name: Run container test
           run: docker run --rm redzek/pythonenv:latest echo "✅ Container works fine!"
-          
 
         
           
