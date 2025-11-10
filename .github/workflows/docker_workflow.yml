@@ -13,8 +13,12 @@ jobs:
           uses: actions/checkout@v4
 
         - name: Build Docker image
-          run: docker build -t redzek/telerik:v1 .
+          run: docker build -t redzek/pythonenv:latest .
+          working-directory: ${{ github.workspace }}/Docker_Homework
+
 
         - name: Run container test
-          run: docker run --rm redzek/telerik:v1 echo "✅ Container works!"
+          run: docker run --rm redzek/pythonenv:latest echo "✅ Container works fine!"
+
+        
           
